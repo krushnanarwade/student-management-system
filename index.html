@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MobileShopee — Premium Mobile Marketplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050810;
+  --bg2: #0b1120;
+  --bg3: #111827;
+  --card: #0f1929;
+  --border: #1e2d45;
+  --cyan: #00e5ff;
+  --cyan2: #00bcd4;
+  --orange: #ff6b35;
+  --green: #00e676;
+  --red: #ff1744;
+  --text: #e8eaf6;
+  --text2: #8899bb;
+  --text3: #4a5568;
+  --gold: #ffd740;
+  --radius: 14px;
+  --shadow: 0 8px 32px rgba(0,229,255,0.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+.page{display:none;min-height:100vh;}
+.page.active{display:block;}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,8,16,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:'Orbitron',sans-serif;font-size:1.25rem;font-weight:900;color:var(--cyan);letter-spacing:2px;cursor:pointer;}
+.logo span{color:var(--orange);}
+.nav-links{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.nav-btn{background:transparent;border:none;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:500;padding:8px 14px;border-radius:8px;cursor:pointer;transition:all .2s;}
+.nav-btn:hover{color:var(--cyan);background:rgba(0,229,255,.07);}
+.nav-btn.primary{background:var(--cyan);color:#000;font-weight:600;}
+.nav-btn.primary:hover{background:#00bcd4;}
+.cart-btn{position:relative;}
+.cart-count{position:absolute;top:-4px;right:-4px;background:var(--orange);color:#fff;font-size:.65rem;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.user-chip{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:5px 12px 5px 8px;display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--text);}
+.avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--orange));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#000;}
+/* ── HERO ── */
+.hero{padding:120px 40px 80px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(0,229,255,.12),transparent);}
+.hero-tag{display:inline-block;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.3);color:var(--cyan);font-size:.78rem;font-weight:600;letter-spacing:2px;padding:5px 14px;border-radius:20px;margin-bottom:20px;text-transform:uppercase;}
+.hero h1{font-family:'Orbitron',sans-serif;font-size:clamp(2rem,6vw,4rem);font-weight:900;line-height:1.1;margin-bottom:20px;}
+.hero h1 span{color:var(--cyan);}
+.hero p{color:var(--text2);font-size:1.05rem;max-width:580px;margin:0 auto 36px;line-height:1.7;}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn{padding:13px 28px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;border:none;transition:all .25s;letter-spacing:.3px;}
+.btn-primary{background:var(--cyan);color:#000;}
+.btn-primary:hover{background:#00bcd4;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,229,255,.35);}
+.btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--text);}
+.btn-outline:hover{border-color:var(--cyan);color:var(--cyan);}
+.btn-orange{background:var(--orange);color:#fff;}
+.btn-orange:hover{background:#e55a28;transform:translateY(-2px);}
+.btn-danger{background:var(--red);color:#fff;}
+.btn-danger:hover{background:#d50000;}
+.btn-green{background:var(--green);color:#000;}
+.btn-green:hover{background:#00c853;}
+/* ── BRANDS STRIP ── */
+.brands-strip{padding:32px 40px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.brands-strip h3{text-align:center;color:var(--text2);font-size:.78rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;}
+.brand-logos{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;}
+.brand-chip{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 20px;font-family:'Orbitron',sans-serif;font-size:.75rem;font-weight:600;color:var(--text2);cursor:pointer;transition:all .2s;}
+.brand-chip:hover,.brand-chip.active{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.06);}
+/* ── SECTION ── */
+.section{padding:60px 40px;}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;}
+.section-title{font-family:'Orbitron',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text);}
+.section-title span{color:var(--cyan);}
+/* ── PRODUCT GRID ── */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;}
+.product-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .25s;position:relative;}
+.product-card:hover{border-color:var(--cyan);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,229,255,.12);}
+.product-badge{position:absolute;top:10px;left:10px;background:var(--orange);color:#fff;font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:5px;z-index:2;text-transform:uppercase;}
+.product-badge.new{background:var(--green);color:#000;}
+.product-img{width:100%;height:180px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg2),var(--bg3));font-size:3.5rem;}
+.product-info{padding:14px;}
+.product-brand{font-size:.72rem;color:var(--cyan);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.product-name{font-size:.95rem;font-weight:600;margin-bottom:6px;line-height:1.3;}
+.product-stars{color:var(--gold);font-size:.8rem;margin-bottom:8px;}
+.product-price{display:flex;align-items:center;gap:8px;}
+.price-current{font-family:'Orbitron',sans-serif;font-size:1.05rem;font-weight:700;color:var(--cyan);}
+.price-old{font-size:.8rem;color:var(--text3);text-decoration:line-through;}
+.product-card-footer{padding:10px 14px;border-top:1px solid var(--border);display:flex;gap:8px;}
+.add-cart-btn{flex:1;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.3);color:var(--cyan);border-radius:8px;padding:7px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.add-cart-btn:hover{background:var(--cyan);color:#000;}
+.wishlist-btn{background:rgba(255,107,53,.1);border:1px solid rgba(255,107,53,.3);color:var(--orange);border-radius:8px;padding:7px 10px;cursor:pointer;font-size:.85rem;transition:all .2s;}
+.wishlist-btn:hover{background:var(--orange);color:#fff;}
+/* ── SEARCH ── */
+.search-bar{display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap;}
+.search-input{flex:1;min-width:200px;background:var(--card);border:1px solid var(--border);color:var(--text);padding:12px 18px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border .2s;}
+.search-input:focus{border-color:var(--cyan);}
+.search-input::placeholder{color:var(--text3);}
+select.filter-select{background:var(--card);border:1px solid var(--border);color:var(--text);padding:12px 16px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;cursor:pointer;}
+select.filter-select:focus{border-color:var(--cyan);}
+/* ── FORMS ── */
+.form-page{padding:100px 24px 60px;display:flex;justify-content:center;align-items:flex-start;}
+.form-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:40px;width:100%;max-width:460px;position:relative;overflow:hidden;}
+.form-card::before{content:'';position:absolute;top:-1px;left:20%;right:20%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);}
+.form-title{font-family:'Orbitron',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:6px;}
+.form-sub{color:var(--text2);font-size:.88rem;margin-bottom:28px;line-height:1.5;}
+.form-group{margin-bottom:18px;}
+.form-label{display:block;font-size:.82rem;font-weight:600;color:var(--text2);margin-bottom:7px;letter-spacing:.3px;}
+.form-input{width:100%;background:var(--bg2);border:1.5px solid var(--border);color:var(--text);padding:12px 16px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border .2s;}
+.form-input:focus{border-color:var(--cyan);}
+.form-input::placeholder{color:var(--text3);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-divider{text-align:center;color:var(--text3);font-size:.82rem;margin:18px 0;position:relative;}
+.form-divider::before,.form-divider::after{content:'';position:absolute;top:50%;width:40%;height:1px;background:var(--border);}
+.form-divider::before{left:0;}
+.form-divider::after{right:0;}
+.form-link{color:var(--cyan);cursor:pointer;text-decoration:none;font-weight:600;}
+.form-link:hover{text-decoration:underline;}
+.form-note{text-align:center;font-size:.84rem;color:var(--text2);margin-top:16px;}
+.full-btn{width:100%;padding:14px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;border:none;cursor:pointer;transition:all .25s;margin-top:4px;}
+.full-btn-cyan{background:var(--cyan);color:#000;}
+.full-btn-cyan:hover{background:#00bcd4;transform:translateY(-1px);}
+.full-btn-orange{background:var(--orange);color:#fff;}
+.full-btn-orange:hover{background:#e55a28;}
+.alert{padding:12px 16px;border-radius:9px;font-size:.85rem;margin-bottom:16px;border:1px solid;}
+.alert-error{background:rgba(255,23,68,.1);border-color:rgba(255,23,68,.4);color:#ff6b6b;}
+.alert-success{background:rgba(0,230,118,.1);border-color:rgba(0,230,118,.4);color:#69f0ae;}
+/* ── PRODUCT DETAIL ── */
+.detail-page{padding:90px 40px 60px;}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:1000px;margin:0 auto;}
+.detail-img-box{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:20px;display:flex;align-items:center;justify-content:center;height:360px;font-size:8rem;}
+.detail-brand{font-size:.8rem;color:var(--cyan);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.detail-name{font-family:'Orbitron',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:12px;line-height:1.2;}
+.detail-stars{color:var(--gold);margin-bottom:14px;font-size:.9rem;}
+.detail-price{font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:900;color:var(--cyan);margin-bottom:6px;}
+.detail-old-price{font-size:.9rem;color:var(--text3);text-decoration:line-through;margin-bottom:20px;}
+.detail-desc{color:var(--text2);font-size:.9rem;line-height:1.7;margin-bottom:24px;}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
+.spec-item{background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:10px 14px;}
+.spec-key{font-size:.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+.spec-val{font-size:.88rem;font-weight:600;color:var(--text);}
+.detail-actions{display:flex;gap:12px;flex-wrap:wrap;}
+@media(max-width:700px){.detail-grid{grid-template-columns:1fr;}}
+/* ── CART ── */
+.cart-page{padding:90px 40px 60px;max-width:900px;margin:0 auto;}
+.cart-title{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:28px;}
+.cart-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;align-items:center;gap:16px;margin-bottom:14px;transition:border .2s;}
+.cart-item:hover{border-color:var(--border);}
+.cart-item-img{font-size:2.5rem;width:64px;height:64px;display:flex;align-items:center;justify-content:center;background:var(--bg2);border-radius:10px;flex-shrink:0;}
+.cart-item-info{flex:1;}
+.cart-item-name{font-weight:600;margin-bottom:4px;}
+.cart-item-brand{font-size:.78rem;color:var(--cyan);font-weight:600;}
+.cart-item-price{font-family:'Orbitron',sans-serif;font-weight:700;color:var(--cyan);}
+.qty-controls{display:flex;align-items:center;gap:8px;}
+.qty-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text);width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.qty-btn:hover{border-color:var(--cyan);color:var(--cyan);}
+.qty-num{font-weight:700;min-width:24px;text-align:center;}
+.remove-btn{background:rgba(255,23,68,.1);border:1px solid rgba(255,23,68,.3);color:var(--red);border-radius:8px;padding:6px 12px;cursor:pointer;font-size:.8rem;transition:all .2s;}
+.remove-btn:hover{background:var(--red);color:#fff;}
+.cart-summary{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-top:8px;}
+.summary-row{display:flex;justify-content:space-between;padding:8px 0;font-size:.9rem;color:var(--text2);}
+.summary-row.total{border-top:1px solid var(--border);margin-top:8px;padding-top:14px;font-size:1.05rem;font-weight:700;color:var(--text);}
+.summary-row.total .val{font-family:'Orbitron',sans-serif;color:var(--cyan);}
+.empty-cart{text-align:center;padding:80px 20px;}
+.empty-cart .icon{font-size:4rem;margin-bottom:16px;}
+.empty-cart h3{font-family:'Orbitron',sans-serif;font-size:1.2rem;margin-bottom:10px;}
+.empty-cart p{color:var(--text2);margin-bottom:24px;}
+/* ── PAYMENT ── */
+.payment-page{padding:90px 40px 60px;display:flex;justify-content:center;}
+.payment-container{width:100%;max-width:820px;}
+.payment-title{font-family:'Orbitron',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:28px;}
+.payment-grid{display:grid;grid-template-columns:1fr 360px;gap:24px;}
+@media(max-width:760px){.payment-grid{grid-template-columns:1fr;}}
+.payment-methods{display:flex;gap:10px;margin-bottom:22px;flex-wrap:wrap;}
+.pay-method{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:10px 18px;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--text2);transition:all .2s;display:flex;align-items:center;gap:7px;}
+.pay-method:hover,.pay-method.active{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.05);}
+.pay-section{display:none;}
+.pay-section.active{display:block;}
+.order-summary{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;position:sticky;top:80px;}
+.order-summary h3{font-family:'Orbitron',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:18px;color:var(--cyan);}
+.order-item{display:flex;justify-content:space-between;padding:7px 0;font-size:.85rem;border-bottom:1px solid var(--border);}
+.order-item:last-child{border:none;}
+.order-total{display:flex;justify-content:space-between;font-weight:700;margin-top:12px;font-size:.95rem;}
+.order-total span:last-child{font-family:'Orbitron',sans-serif;color:var(--cyan);}
+/* ── SELLER DASHBOARD ── */
+.seller-page{padding:90px 40px 60px;max-width:1100px;margin:0 auto;}
+.seller-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;flex-wrap:gap;}
+.seller-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:32px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
+.stat-icon{font-size:1.5rem;margin-bottom:8px;}
+.stat-val{font-family:'Orbitron',sans-serif;font-size:1.4rem;font-weight:700;color:var(--cyan);margin-bottom:4px;}
+.stat-label{font-size:.78rem;color:var(--text2);}
+.products-table{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.table-header{display:grid;grid-template-columns:60px 1fr 100px 80px 100px;padding:14px 18px;background:var(--bg2);font-size:.78rem;font-weight:700;color:var(--text2);letter-spacing:.5px;text-transform:uppercase;gap:10px;}
+.table-row{display:grid;grid-template-columns:60px 1fr 100px 80px 100px;padding:14px 18px;border-top:1px solid var(--border);align-items:center;gap:10px;font-size:.88rem;transition:background .15s;}
+.table-row:hover{background:rgba(255,255,255,.02);}
+.status-badge{font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:5px;text-transform:uppercase;}
+.status-live{background:rgba(0,230,118,.15);color:var(--green);}
+.status-pending{background:rgba(255,215,64,.15);color:var(--gold);}
+/* ── TOAST ── */
+.toast-container{position:fixed;top:80px;right:20px;z-index:1000;display:flex;flex-direction:column;gap:10px;}
+.toast{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px 18px;font-size:.85rem;min-width:220px;animation:slideIn .3s ease;display:flex;align-items:center;gap:10px;}
+.toast.success{border-color:rgba(0,230,118,.4);color:var(--green);}
+.toast.error{border-color:rgba(255,23,68,.4);color:#ff6b6b);}
+.toast.info{border-color:rgba(0,229,255,.4);color:var(--cyan);}
+@keyframes slideIn{from{transform:translateX(60px);opacity:0;}to{transform:translateX(0);opacity:1;}}
+/* ── MISC ── */
+.page-top-bar{padding:90px 40px 20px;display:flex;align-items:center;gap:12px;}
+.back-btn{background:var(--card);border:1px solid var(--border);color:var(--text2);padding:8px 16px;border-radius:9px;cursor:pointer;font-size:.85rem;transition:all .2s;}
+.back-btn:hover{color:var(--cyan);border-color:var(--cyan);}
+.tag{font-size:.72rem;background:var(--bg2);border:1px solid var(--border);padding:3px 9px;border-radius:5px;color:var(--text2);}
+.chip{display:inline-flex;align-items:center;gap:5px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.2);color:var(--cyan);font-size:.75rem;padding:4px 10px;border-radius:20px;}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:36px;max-width:440px;width:100%;position:relative;animation:popIn .3s ease;}
+@keyframes popIn{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+.modal-close{position:absolute;top:14px;right:14px;background:var(--card);border:1px solid var(--border);color:var(--text2);width:30px;height:30px;border-radius:7px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;}
+.success-screen{text-align:center;padding:60px 20px;}
+.success-icon{font-size:4rem;margin-bottom:16px;}
+.success-screen h2{font-family:'Orbitron',sans-serif;font-size:1.4rem;margin-bottom:10px;color:var(--green);}
+.success-screen p{color:var(--text2);margin-bottom:24px;line-height:1.6;}
+.footer{background:var(--bg2);border-top:1px solid var(--border);padding:32px 40px;text-align:center;color:var(--text3);font-size:.82rem;margin-top:40px;}
+.footer strong{color:var(--cyan);}
+.pill-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
+.pill-tab{background:var(--card);border:1px solid var(--border);color:var(--text2);padding:7px 16px;border-radius:20px;cursor:pointer;font-size:.83rem;font-weight:500;transition:all .2s;}
+.pill-tab:hover,.pill-tab.active{background:rgba(0,229,255,.08);border-color:var(--cyan);color:var(--cyan);}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav>
+  <div class="logo" onclick="showPage('home')">Mobile<span>Shopee</span></div>
+  <div class="nav-links" id="navLinks">
+    <button class="nav-btn" onclick="showPage('home')">🏠 Home</button>
+    <button class="nav-btn" onclick="showPage('shop')">📱 Shop</button>
+    <button class="nav-btn" id="sellerNavBtn" onclick="showPage('seller')" style="display:none">🏪 My Store</button>
+    <button class="nav-btn cart-btn" onclick="showPage('cart')">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
+    <div id="authButtons">
+      <button class="nav-btn" onclick="showPage('login')">Login</button>
+      <button class="nav-btn primary" onclick="showPage('register')">Sign Up</button>
+    </div>
+    <div id="userChip" style="display:none">
+      <div class="user-chip">
+        <div class="avatar" id="userAvatar">U</div>
+        <span id="userName">User</span>
+        <button class="nav-btn" style="padding:4px 8px;font-size:.78rem;" onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+<!-- ════════════════ HOME PAGE ════════════════ -->
+<div class="page active" id="home">
+  <div class="hero">
+    <div class="hero-tag">✦ Next-Gen Mobile Marketplace</div>
+    <h1>Buy & Sell<br><span>Premium Mobiles</span></h1>
+    <p>India's most trusted mobile marketplace. Shop from top brands, compare specs, and get the best deals delivered to your door.</p>
+    <div class="hero-btns">
+      <button class="btn btn-primary" onclick="showPage('shop')">🔍 Browse Phones</button>
+      <button class="btn btn-outline" onclick="showPage('brand-register')">🏪 Sell on MobileShopee</button>
+    </div>
+  </div>
+  <div class="brands-strip">
+    <h3>✦ Featured Brands ✦</h3>
+    <div class="brand-logos" id="homeBrands"></div>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">🔥 <span>Hot Deals</span> Today</div>
+      <button class="btn btn-outline" style="padding:8px 18px;font-size:.82rem;" onclick="showPage('shop')">View All →</button>
+    </div>
+    <div class="products-grid" id="hotDeals"></div>
+  </div>
+  <div class="section" style="background:var(--bg2);margin:0 -0px;padding:60px 40px;">
+    <div class="section-header">
+      <div class="section-title">⭐ <span>New</span> Arrivals</div>
+    </div>
+    <div class="products-grid" id="newArrivals"></div>
+  </div>
+  <!-- Why MobileShopee -->
+  <div class="section">
+    <div class="section-title" style="text-align:center;margin-bottom:32px;">Why <span style="color:var(--cyan)">MobileShopee</span>?</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:10px;">🔐</div>
+        <div style="font-weight:700;margin-bottom:6px;">Secure Payments</div>
+        <div style="font-size:.83rem;color:var(--text2);">Multiple payment options with bank-grade security</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:10px;">🚀</div>
+        <div style="font-weight:700;margin-bottom:6px;">Fast Delivery</div>
+        <div style="font-size:.83rem;color:var(--text2);">2-day express delivery across India</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:10px;">🏪</div>
+        <div style="font-weight:700;margin-bottom:6px;">Verified Brands</div>
+        <div style="font-size:.83rem;color:var(--text2);">All sellers are verified and trusted</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:10px;">↩️</div>
+        <div style="font-weight:700;margin-bottom:6px;">Easy Returns</div>
+        <div style="font-size:.83rem;color:var(--text2);">7-day hassle-free return policy</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">Crafted with ♥ · <strong>MobileShopee</strong> © 2025 · All brands & trademarks belong to their respective owners</div>
+</div>
+<!-- ════════════════ SHOP PAGE ════════════════ -->
+<div class="page" id="shop">
+  <div class="section" style="padding-top:90px;">
+    <div class="section-title" style="margin-bottom:24px;">📱 All <span style="color:var(--cyan)">Phones</span></div>
+    <div class="search-bar">
+      <input type="text" class="search-input" placeholder="🔍  Search phones by name, brand, specs…" id="searchInput" oninput="filterProducts()">
+      <select class="filter-select" id="brandFilter" onchange="filterProducts()">
+        <option value="">All Brands</option>
+      </select>
+      <select class="filter-select" id="priceFilter" onchange="filterProducts()">
+        <option value="">All Prices</option>
+        <option value="0-15000">Under ₹15,000</option>
+        <option value="15000-30000">₹15,000 – ₹30,000</option>
+        <option value="30000-60000">₹30,000 – ₹60,000</option>
+        <option value="60000-999999">Above ₹60,000</option>
+      </select>
+    </div>
+    <div class="brand-logos" style="margin-bottom:24px;" id="shopBrands"></div>
+    <div class="products-grid" id="shopGrid"></div>
+    <div id="noResults" style="display:none;text-align:center;padding:60px;color:var(--text2);">
+      <div style="font-size:3rem;margin-bottom:12px;">🔍</div>
+      <div style="font-size:1.05rem;font-weight:600;">No phones found</div>
+      <div style="font-size:.85rem;">Try different search terms or filters</div>
+    </div>
+  </div>
+  <div class="footer">MobileShopee © 2025</div>
+</div>
+<!-- ════════════════ PRODUCT DETAIL ════════════════ -->
+<div class="page" id="product-detail">
+  <div class="page-top-bar">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <span class="tag" id="detailBreadcrumb">Product Detail</span>
+  </div>
+  <div class="detail-page" style="padding-top:10px;">
+    <div class="detail-grid" id="productDetailContent"></div>
+  </div>
+  <div class="footer">MobileShopee © 2025</div>
+</div>
+<!-- ════════════════ LOGIN PAGE ════════════════ -->
+<div class="page" id="login">
+  <div class="form-page">
+    <div class="form-card">
+      <div style="text-align:center;font-size:2.2rem;margin-bottom:16px;">🔑</div>
+      <div class="form-title">Welcome Back</div>
+      <div class="form-sub">Login to your MobileShopee account to continue shopping</div>
+      <div id="loginAlert"></div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" id="loginEmail" placeholder="you@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="loginPassword" placeholder="••••••••">
+      </div>
+      <button class="full-btn full-btn-cyan" onclick="doLogin()">Login to Account →</button>
+      <div class="form-divider">or</div>
+      <div class="form-note">New to MobileShopee? <span class="form-link" onclick="showPage('register')">Create an account</span></div>
+      <div class="form-note" style="margin-top:10px;">Are you a brand? <span class="form-link" onclick="showPage('brand-register')">Register as Seller →</span></div>
+    </div>
+  </div>
+</div>
+<!-- ════════════════ REGISTER PAGE ════════════════ -->
+<div class="page" id="register">
+  <div class="form-page">
+    <div class="form-card">
+      <div style="text-align:center;font-size:2.2rem;margin-bottom:16px;">👤</div>
+      <div class="form-title">Create Account</div>
+      <div class="form-sub">Join MobileShopee and get access to exclusive deals</div>
+      <div id="registerAlert"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" id="regFirst" placeholder="Raj">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" id="regLast" placeholder="Sharma">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" id="regEmail" placeholder="you@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" class="form-input" id="regPhone" placeholder="+91 XXXXX XXXXX">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="regPassword" placeholder="Min 6 characters">
+      </div>
+      <button class="full-btn full-btn-cyan" onclick="doRegister()">Create Account →</button>
+      <div class="form-note" style="margin-top:14px;">Already have an account? <span class="form-link" onclick="showPage('login')">Login here</span></div>
+    </div>
+  </div>
+</div>
+<!-- ════════════════ BRAND REGISTER PAGE ════════════════ -->
+<div class="page" id="brand-register">
+  <div class="form-page" style="padding:100px 24px 60px;">
+    <div class="form-card" style="max-width:560px;">
+      <div style="text-align:center;font-size:2.2rem;margin-bottom:16px;">🏪</div>
+      <div class="form-title">Register Your Brand</div>
+      <div class="form-sub">Start selling on MobileShopee. Reach millions of mobile buyers across India. It's free to register!</div>
+      <div id="brandAlert"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Brand Name *</label>
+          <input type="text" class="form-input" id="brandName" placeholder="e.g. TechMobile">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Brand Emoji *</label>
+          <input type="text" class="form-input" id="brandEmoji" placeholder="📱" maxlength="4">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Brand Description *</label>
+        <input type="text" class="form-input" id="brandDesc" placeholder="Brief description of your brand">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Contact Email *</label>
+          <input type="email" class="form-input" id="brandEmail" placeholder="brand@company.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone *</label>
+          <input type="tel" class="form-input" id="brandPhone" placeholder="+91 XXXXX">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">GST Number</label>
+        <input type="text" class="form-input" id="brandGST" placeholder="22AAAAA0000A1Z5 (Optional)">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password *</label>
+        <input type="password" class="form-input" id="brandPassword" placeholder="Create seller password">
+      </div>
+      <div style="background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.2);border-radius:10px;padding:14px;margin-bottom:20px;font-size:.82rem;color:var(--text2);">
+        ✅ Free listing for first 10 products<br>
+        ✅ Dashboard to manage orders & inventory<br>
+        ✅ Secure payouts every week
+      </div>
+      <button class="full-btn full-btn-orange" onclick="doBrandRegister()">Register Brand & Start Selling →</button>
+      <div class="form-note" style="margin-top:14px;">Already a seller? <span class="form-link" onclick="showPage('login')">Login here</span></div>
+    </div>
+  </div>
+</div>
+<!-- ════════════════ CART PAGE ════════════════ -->
+<div class="page" id="cart">
+  <div class="cart-page">
+    <div class="cart-title">🛒 Your <span style="color:var(--cyan)">Cart</span></div>
+    <div id="cartContent"></div>
+  </div>
+  <div class="footer">MobileShopee © 2025</div>
+</div>
+<!-- ════════════════ PAYMENT PAGE ════════════════ -->
+<div class="page" id="payment">
+  <div class="payment-page">
+    <div class="payment-container">
+      <div class="payment-title">💳 Secure <span style="color:var(--cyan)">Checkout</span></div>
+      <div class="payment-grid">
+        <div>
+          <!-- Delivery Address -->
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-bottom:18px;">
+            <div style="font-weight:700;margin-bottom:16px;font-size:.95rem;">📍 Delivery Address</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-input" id="payName" placeholder="Your name">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone</label>
+                <input type="tel" class="form-input" id="payPhone" placeholder="+91 XXXXX">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Address</label>
+              <input type="text" class="form-input" id="payAddress" placeholder="Street, Area, Landmark">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">City</label>
+                <input type="text" class="form-input" id="payCity" placeholder="Mumbai">
+              </div>
+              <div class="form-group">
+                <label class="form-label">PIN Code</label>
+                <input type="text" class="form-input" id="payPin" placeholder="400001">
+              </div>
+            </div>
+          </div>
+          <!-- Payment Method -->
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;">
+            <div style="font-weight:700;margin-bottom:16px;font-size:.95rem;">💳 Payment Method</div>
+            <div class="payment-methods">
+              <div class="pay-method active" onclick="selectPayMethod('card',this)">💳 Credit/Debit Card</div>
+              <div class="pay-method" onclick="selectPayMethod('upi',this)">📲 UPI</div>
+              <div class="pay-method" onclick="selectPayMethod('wallet',this)">👛 Wallet</div>
+              <div class="pay-method" onclick="selectPayMethod('cod',this)">💵 Cash on Delivery</div>
+            </div>
+            <!-- Card Section -->
+            <div class="pay-section active" id="pay-card">
+              <div class="form-group">
+                <label class="form-label">Card Number</label>
+                <input type="text" class="form-input" id="cardNum" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)">
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Expiry Date</label>
+                  <input type="text" class="form-input" id="cardExp" placeholder="MM/YY" maxlength="5">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">CVV</label>
+                  <input type="password" class="form-input" id="cardCvv" placeholder="•••" maxlength="3">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Name on Card</label>
+                <input type="text" class="form-input" id="cardName" placeholder="RAJ SHARMA">
+              </div>
+            </div>
+            <!-- UPI Section -->
+            <div class="pay-section" id="pay-upi">
+              <div class="form-group">
+                <label class="form-label">UPI ID</label>
+                <input type="text" class="form-input" id="upiId" placeholder="yourname@upi">
+              </div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
+                <div class="pay-method" style="font-size:.78rem;padding:8px 12px;" onclick="document.getElementById('upiId').value='yourname@gpay'">📱 GPay</div>
+                <div class="pay-method" style="font-size:.78rem;padding:8px 12px;" onclick="document.getElementById('upiId').value='yourname@paytm'">💙 Paytm</div>
+                <div class="pay-method" style="font-size:.78rem;padding:8px 12px;" onclick="document.getElementById('upiId').value='yourname@phonepe'">💜 PhonePe</div>
+              </div>
+            </div>
+            <!-- Wallet Section -->
+            <div class="pay-section" id="pay-wallet">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                <div class="pay-method" id="wallet-paytm" onclick="selectWallet('paytm')">💙 Paytm</div>
+                <div class="pay-method" id="wallet-amazon" onclick="selectWallet('amazon')">🟠 Amazon Pay</div>
+                <div class="pay-method" id="wallet-mobikwik" onclick="selectWallet('mobikwik')">🔵 Mobikwik</div>
+                <div class="pay-method" id="wallet-freecharge" onclick="selectWallet('freecharge')">🟢 FreeCharge</div>
+              </div>
+            </div>
+            <!-- COD Section -->
+            <div class="pay-section" id="pay-cod">
+              <div style="background:rgba(255,215,64,.08);border:1px solid rgba(255,215,64,.3);border-radius:10px;padding:16px;text-align:center;">
+                <div style="font-size:2rem;margin-bottom:8px;">💵</div>
+                <div style="font-weight:600;margin-bottom:6px;">Cash on Delivery</div>
+                <div style="font-size:.83rem;color:var(--text2);">Pay in cash when your order arrives. ₹49 COD fee applies.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Order Summary -->
+        <div>
+          <div class="order-summary">
+            <h3>🛍 Order Summary</h3>
+            <div id="paymentOrderItems"></div>
+            <div style="border-top:1px solid var(--border);margin-top:12px;padding-top:14px;">
+              <div class="summary-row"><span>Subtotal</span><span id="paySubtotal">₹0</span></div>
+              <div class="summary-row"><span>Shipping</span><span style="color:var(--green)">FREE</span></div>
+              <div class="summary-row"><span>Tax (18% GST)</span><span id="payTax">₹0</span></div>
+              <div class="order-total"><span>Total</span><span id="payTotal">₹0</span></div>
+            </div>
+            <button class="full-btn full-btn-cyan" style="margin-top:20px;" onclick="processPayment()">🔒 Pay Now →</button>
+            <div style="text-align:center;font-size:.72rem;color:var(--text3);margin-top:12px;">🛡 256-bit SSL encrypted · RBI compliant</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">MobileShopee © 2025</div>
+</div>
+<!-- ════════════════ SELLER DASHBOARD ════════════════ -->
+<div class="page" id="seller">
+  <div class="seller-page">
+    <div class="seller-header">
+      <div>
+        <div style="font-family:'Orbitron',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:4px;" id="sellerWelcome">Welcome, Brand!</div>
+        <div style="color:var(--text2);font-size:.88rem;">Manage your store, products and orders</div>
+      </div>
+      <button class="btn btn-primary" onclick="showAddProductModal()">+ Add Product</button>
+    </div>
+    <div class="seller-stats" id="sellerStats"></div>
+    <div class="pill-tabs">
+      <div class="pill-tab active" onclick="sellerTab('products',this)">My Products</div>
+      <div class="pill-tab" onclick="sellerTab('orders',this)">Orders</div>
+      <div class="pill-tab" onclick="sellerTab('analytics',this)">Analytics</div>
+    </div>
+    <div id="sellerTabContent"></div>
+  </div>
+  <div class="footer">MobileShopee © 2025</div>
+</div>
+<!-- ════════════════ ORDER SUCCESS PAGE ════════════════ -->
+<div class="page" id="order-success">
+  <div style="padding:100px 40px;display:flex;justify-content:center;">
+    <div class="success-screen" style="max-width:480px;">
+      <div class="success-icon">🎉</div>
+      <h2>Order Placed Successfully!</h2>
+      <p>Your order has been confirmed and will be delivered in <strong>2–4 business days</strong>. You'll receive a confirmation SMS and email shortly.</p>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:24px;text-align:left;">
+        <div style="display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:8px;"><span style="color:var(--text2)">Order ID</span><span style="font-family:'Orbitron',sans-serif;color:var(--cyan);font-size:.8rem;" id="orderId"></span></div>
+        <div style="display:flex;justify-content:space-between;font-size:.88rem;"><span style="color:var(--text2)">Estimated Delivery</span><span style="color:var(--green);font-weight:600;">2–4 Business Days</span></div>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-outline" onclick="showPage('home')">🏠 Continue Shopping</button>
+        <button class="btn btn-primary" onclick="showPage('shop')">📱 Browse More</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ADD PRODUCT MODAL -->
+<div class="modal-overlay" id="addProductModal" style="display:none;">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div style="font-family:'Orbitron',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:4px;">Add New Product</div>
+    <div style="color:var(--text2);font-size:.83rem;margin-bottom:20px;">List a new mobile on MobileShopee</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Phone Name *</label>
+        <input type="text" class="form-input" id="prodName" placeholder="e.g. ProMax X1">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Emoji Icon *</label>
+        <input type="text" class="form-input" id="prodEmoji" placeholder="📱" maxlength="4">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Price (₹) *</label>
+        <input type="number" class="form-input" id="prodPrice" placeholder="29999">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Original Price (₹)</label>
+        <input type="number" class="form-input" id="prodOldPrice" placeholder="34999">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Short Description</label>
+      <input type="text" class="form-input" id="prodDesc" placeholder="Key features of this phone">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">RAM</label>
+        <input type="text" class="form-input" id="prodRAM" placeholder="8GB">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Storage</label>
+        <input type="text" class="form-input" id="prodStorage" placeholder="128GB">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Camera</label>
+        <input type="text" class="form-input" id="prodCamera" placeholder="50MP">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Battery</label>
+        <input type="text" class="form-input" id="prodBattery" placeholder="5000mAh">
+      </div>
+    </div>
+    <div id="addProdAlert"></div>
+    <button class="full-btn full-btn-orange" style="margin-top:4px;" onclick="addSellerProduct()">✓ List Product Now</button>
+  </div>
+</div>
+<script>
+// ══════════════ STATE ══════════════
+let state = {
+  currentPage: 'home',
+  previousPage: 'home',
+  user: null,
+  cart: [],
+  activeFilter: '',
+  selectedWallet: '',
+  selectedPayMethod: 'card'
+};
+// ══════════════ PRODUCT DATA ══════════════
+let products = [
+  {id:1,brand:'Samsung',emoji:'📱',name:'Galaxy S25 Ultra',price:134999,oldPrice:154999,rating:4.9,reviews:2840,desc:'The ultimate Galaxy experience with S Pen, 200MP camera and AI features.',ram:'12GB',storage:'256GB',camera:'200MP AI',battery:'5000mAh',badge:'',tags:['flagship','hot']},
+  {id:2,brand:'Apple',emoji:'🍎',name:'iPhone 16 Pro Max',price:159900,oldPrice:179900,rating:4.9,reviews:5210,desc:'Most advanced iPhone ever with A18 Pro chip and titanium design.',ram:'8GB',storage:'256GB',camera:'48MP ProRAW',battery:'4685mAh',badge:'HOT',tags:['flagship','hot']},
+  {id:3,brand:'OnePlus',emoji:'🔴',name:'OnePlus 13',price:69999,oldPrice:79999,rating:4.7,reviews:1340,desc:'Flagship killer with Snapdragon 8 Gen 3 and 100W charging.',ram:'12GB',storage:'256GB',camera:'50MP Hasselblad',battery:'6000mAh',badge:'',tags:['hot']},
+  {id:4,brand:'Xiaomi',emoji:'🟠',name:'Xiaomi 14 Ultra',price:89999,oldPrice:99999,rating:4.7,reviews:987,desc:'Leica quad camera with 1-inch sensor and 90W HyperCharge.',ram:'12GB',storage:'256GB',camera:'50MP Leica',battery:'5300mAh',badge:'',tags:['new']},
+  {id:5,brand:'Realme',emoji:'🟡',name:'Realme GT 6',price:39999,oldPrice:44999,rating:4.5,reviews:762,desc:'Snapdragon 8s Gen 3 with 5500mAh battery at unbeatable price.',ram:'8GB',storage:'128GB',camera:'50MP',battery:'5500mAh',badge:'SALE',tags:['hot','sale']},
+  {id:6,brand:'Vivo',emoji:'🔵',name:'Vivo X100 Pro',price:89999,oldPrice:99999,rating:4.6,reviews:543,desc:'Zeiss co-engineered cameras with world\'s first 1T ISOCELL sensor.',ram:'16GB',storage:'256GB',camera:'50MP Zeiss',battery:'5400mAh',badge:'',tags:['new']},
+  {id:7,brand:'Oppo',emoji:'🟢',name:'Oppo Find X8 Pro',price:109999,oldPrice:124999,rating:4.8,reviews:432,desc:'Hasselblad periscope telephoto with 4.3x optical zoom.',ram:'12GB',storage:'256GB',camera:'50MP Hasselblad',battery:'5910mAh',badge:'NEW',tags:['new']},
+  {id:8,brand:'Nothing',emoji:'⚪',name:'Nothing Phone (3)',price:49999,oldPrice:54999,rating:4.6,reviews:1100,desc:'Iconic Glyph Interface with transparent back and clean Android.',ram:'8GB',storage:'128GB',camera:'50MP',battery:'4700mAh',badge:'NEW',tags:['new']},
+  {id:9,brand:'Samsung',emoji:'📱',name:'Galaxy A55',price:34999,oldPrice:39999,rating:4.4,reviews:2100,desc:'Premium mid-ranger with IP67, 50MP OIS camera.',ram:'8GB',storage:'128GB',camera:'50MP OIS',battery:'5000mAh',badge:'',tags:['sale']},
+  {id:10,brand:'Apple',emoji:'🍎',name:'iPhone 15',price:79900,oldPrice:89900,rating:4.7,reviews:4300,desc:'Dynamic Island, USB-C and A16 Bionic. The complete package.',ram:'6GB',storage:'128GB',camera:'48MP',battery:'3877mAh',badge:'',tags:[]},
+  {id:11,brand:'Motorola',emoji:'✖️',name:'Moto Edge 50 Pro',price:31999,oldPrice:36999,rating:4.4,reviews:654,desc:'6.7" pOLED display with 125W TurboPower charging.',ram:'12GB',storage:'256GB',camera:'50MP',battery:'4500mAh',badge:'SALE',tags:['sale']},
+  {id:12,brand:'iQOO',emoji:'⚡',name:'iQOO 12 Pro',price:54999,oldPrice:59999,rating:4.7,reviews:876,desc:'Snapdragon 8 Gen 3, 144Hz AMOLED with 120W FlashCharge.',ram:'12GB',storage:'256GB',camera:'50MP Zeiss',battery:'5000mAh',badge:'',tags:['hot']},
+];
+// ══════════════ BRANDS ══════════════
+const defaultBrands = ['Samsung','Apple','OnePlus','Xiaomi','Realme','Vivo','Oppo','Nothing','Motorola','iQOO'];
+let registeredBrands = JSON.parse(localStorage.getItem('ms_brands') || '[]');
+let users = JSON.parse(localStorage.getItem('ms_users') || '[]');
+function getAllBrands(){
+  const pBrands = [...new Set(products.map(p=>p.brand))];
+  const rBrands = registeredBrands.map(b=>b.name);
+  return [...new Set([...pBrands,...rBrands])];
+}
+// ══════════════ PAGE NAVIGATION ══════════════
+function showPage(id){
+  state.previousPage = state.currentPage;
+  state.currentPage = id;
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const pg = document.getElementById(id);
+  if(pg) pg.classList.add('active');
+  window.scrollTo(0,0);
+  onPageLoad(id);
+}
+function goBack(){showPage(state.previousPage||'shop');}
+function onPageLoad(id){
+  if(id==='home') renderHome();
+  if(id==='shop') renderShop();
+  if(id==='cart') renderCart();
+  if(id==='payment') renderPayment();
+  if(id==='seller') renderSeller();
+}
+// ══════════════ RENDER HOME ══════════════
+function renderHome(){
+  renderBrandStrip('homeBrands');
+  const hot = products.filter(p=>p.tags.includes('hot')).slice(0,4);
+  const newArr = products.filter(p=>p.tags.includes('new')).slice(0,4);
+  document.getElementById('hotDeals').innerHTML = hot.map(renderProductCard).join('');
+  document.getElementById('newArrivals').innerHTML = newArr.map(renderProductCard).join('');
+}
+function renderBrandStrip(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const brands = getAllBrands();
+  el.innerHTML = brands.map(b=>`<div class="brand-chip" onclick="filterByBrand('${b}')">${getEmoji(b)} ${b}</div>`).join('');
+}
+function getEmoji(brand){
+  const map={Samsung:'📱',Apple:'🍎',OnePlus:'🔴',Xiaomi:'🟠',Realme:'🟡',Vivo:'🔵',Oppo:'🟢',Nothing:'⚪',Motorola:'✖️',iQOO:'⚡'};
+  const rb = registeredBrands.find(b=>b.name===brand);
+  if(rb) return rb.emoji||'📦';
+  return map[brand]||'📦';
+}
+function filterByBrand(brand){
+  showPage('shop');
+  setTimeout(()=>{
+    document.getElementById('brandFilter').value=brand;
+    filterProducts();
+  },100);
+}
+// ══════════════ RENDER PRODUCT CARD ══════════════
+function renderProductCard(p){
+  const badgeHtml = p.badge?`<div class="product-badge ${p.badge==='NEW'?'new':''}">${p.badge}</div>`:'';
+  const discount = p.oldPrice?Math.round((1-p.price/p.oldPrice)*100):'';
+  const discHtml = discount?`<div class="product-badge" style="left:auto;right:10px;background:var(--orange)">-${discount}%</div>`:'';
+  return `
+  <div class="product-card" onclick="viewProduct(${p.id})">
+    ${badgeHtml}${discHtml}
+    <div class="product-img">${p.emoji}</div>
+    <div class="product-info">
+      <div class="product-brand">${getEmoji(p.brand)} ${p.brand}</div>
+      <div class="product-name">${p.name}</div>
+      <div class="product-stars">${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5-Math.floor(p.rating))} <span style="color:var(--text2)">(${p.reviews})</span></div>
+      <div class="product-price">
+        <span class="price-current">₹${p.price.toLocaleString('en-IN')}</span>
+        ${p.oldPrice?`<span class="price-old">₹${p.oldPrice.toLocaleString('en-IN')}</span>`:''}
+      </div>
+    </div>
+    <div class="product-card-footer">
+      <button class="add-cart-btn" onclick="event.stopPropagation();addToCart(${p.id})">🛒 Add to Cart</button>
+      <button class="wishlist-btn" onclick="event.stopPropagation();showToast('Added to wishlist!','info')">♥</button>
+    </div>
+  </div>`;
+}
+// ══════════════ SHOP PAGE ══════════════
+function renderShop(){
+  populateFilters();
+  renderBrandStrip('shopBrands');
+  filterProducts();
+}
+function populateFilters(){
+  const sel = document.getElementById('brandFilter');
+  const brands = getAllBrands();
+  sel.innerHTML = '<option value="">All Brands</option>' + brands.map(b=>`<option value="${b}">${b}</option>`).join('');
+}
+function filterProducts(){
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const brand = document.getElementById('brandFilter').value;
+  const priceRange = document.getElementById('priceFilter').value;
+  let filtered = products;
+  if(brand) filtered = filtered.filter(p=>p.brand===brand);
+  if(q) filtered = filtered.filter(p=>p.name.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q));
+  if(priceRange){const [mn,mx]=priceRange.split('-').map(Number);filtered=filtered.filter(p=>p.price>=mn&&p.price<=mx);}
+  document.getElementById('shopGrid').innerHTML = filtered.map(renderProductCard).join('');
+  document.getElementById('noResults').style.display = filtered.length?'none':'block';
+}
+// ══════════════ PRODUCT DETAIL ══════════════
+function viewProduct(id){
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  state.viewingProduct = id;
+  document.getElementById('detailBreadcrumb').textContent = p.name;
+  document.getElementById('productDetailContent').innerHTML = `
+    <div class="detail-img-box" style="font-size:7rem;">${p.emoji}</div>
+    <div>
+      <div class="detail-brand">${getEmoji(p.brand)} ${p.brand}</div>
+      <div class="detail-name">${p.name}</div>
+      <div class="detail-stars">${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5-Math.floor(p.rating))} <span style="color:var(--text2)">${p.rating} (${p.reviews} reviews)</span></div>
+      <div class="detail-price">₹${p.price.toLocaleString('en-IN')}</div>
+      ${p.oldPrice?`<div class="detail-old-price">MRP ₹${p.oldPrice.toLocaleString('en-IN')} <span style="color:var(--green)">Save ₹${(p.oldPrice-p.price).toLocaleString('en-IN')}</span></div>`:''}
+      <div class="detail-desc">${p.desc}</div>
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-key">RAM</div><div class="spec-val">${p.ram}</div></div>
+        <div class="spec-item"><div class="spec-key">Storage</div><div class="spec-val">${p.storage}</div></div>
+        <div class="spec-item"><div class="spec-key">Camera</div><div class="spec-val">${p.camera}</div></div>
+        <div class="spec-item"><div class="spec-key">Battery</div><div class="spec-val">${p.battery}</div></div>
+      </div>
+      <div class="detail-actions">
+        <button class="btn btn-primary" onclick="addToCart(${p.id});showPage('cart')">🛒 Buy Now</button>
+        <button class="btn btn-outline" onclick="addToCart(${p.id})">+ Add to Cart</button>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+        <span class="chip">✓ Free Shipping</span>
+        <span class="chip">✓ 1 Year Warranty</span>
+        <span class="chip">✓ 7 Day Returns</span>
+      </div>
+    </div>
+  `;
+  showPage('product-detail');
+}
+// ══════════════ CART ══════════════
+function addToCart(id){
+  const p = products.find(x=>x.id===id);
+  if(!p){showToast('Product not found','error');return;}
+  const ex = state.cart.find(x=>x.id===id);
+  if(ex){ex.qty++;showToast(`${p.name} qty updated`,'info');}
+  else{state.cart.push({...p,qty:1});showToast(`${p.name} added to cart!`,'success');}
+  updateCartCount();
+}
+function updateCartCount(){
+  const total = state.cart.reduce((a,c)=>a+c.qty,0);
+  document.getElementById('cartCount').textContent = total;
+}
+function renderCart(){
+  const el = document.getElementById('cartContent');
+  if(!state.cart.length){
+    el.innerHTML=`<div class="empty-cart"><div class="icon">🛒</div><h3>Your cart is empty</h3><p>Looks like you haven't added any phones yet.</p><button class="btn btn-primary" onclick="showPage('shop')">Browse Phones</button></div>`;
+    return;
+  }
+  const subtotal = state.cart.reduce((a,c)=>a+c.price*c.qty,0);
+  const tax = Math.round(subtotal*0.18);
+  el.innerHTML=`
+    ${state.cart.map((item,i)=>`
+    <div class="cart-item">
+      <div class="cart-item-img">${item.emoji}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-brand">${item.brand}</div>
+      </div>
+      <div class="cart-item-price">₹${(item.price*item.qty).toLocaleString('en-IN')}</div>
+      <div class="qty-controls">
+        <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
+        <span class="qty-num">${item.qty}</span>
+        <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
+      </div>
+      <button class="remove-btn" onclick="removeFromCart(${i})">Remove</button>
+    </div>`).join('')}
+    <div class="cart-summary">
+      <div class="summary-row"><span>Subtotal (${state.cart.reduce((a,c)=>a+c.qty,0)} items)</span><span>₹${subtotal.toLocaleString('en-IN')}</span></div>
+      <div class="summary-row"><span>Shipping</span><span style="color:var(--green)">FREE</span></div>
+      <div class="summary-row"><span>GST (18%)</span><span>₹${tax.toLocaleString('en-IN')}</span></div>
+      <div class="summary-row total"><span>Total</span><span class="val">₹${(subtotal+tax).toLocaleString('en-IN')}</span></div>
+      <div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;">
+        <button class="btn btn-outline" onclick="showPage('shop')" style="flex:1">← Continue Shopping</button>
+        <button class="btn btn-primary" onclick="proceedToCheckout()" style="flex:2">Proceed to Checkout →</button>
+      </div>
+    </div>`;
+}
+function changeQty(i,delta){
+  state.cart[i].qty+=delta;
+  if(state.cart[i].qty<1) state.cart.splice(i,1);
+  updateCartCount();
+  renderCart();
+}
+function removeFromCart(i){
+  const name=state.cart[i].name;
+  state.cart.splice(i,1);
+  updateCartCount();
+  renderCart();
+  showToast(`${name} removed`,'info');
+}
+function proceedToCheckout(){
+  if(!state.user){showToast('Please login to checkout','error');showPage('login');return;}
+  showPage('payment');
+}
+// ══════════════ PAYMENT ══════════════
+function renderPayment(){
+  const subtotal = state.cart.reduce((a,c)=>a+c.price*c.qty,0);
+  const tax = Math.round(subtotal*0.18);
+  document.getElementById('paymentOrderItems').innerHTML = state.cart.map(c=>`<div class="order-item"><span>${c.emoji} ${c.name} x${c.qty}</span><span>₹${(c.price*c.qty).toLocaleString('en-IN')}</span></div>`).join('');
+  document.getElementById('paySubtotal').textContent='₹'+subtotal.toLocaleString('en-IN');
+  document.getElementById('payTax').textContent='₹'+tax.toLocaleString('en-IN');
+  document.getElementById('payTotal').textContent='₹'+(subtotal+tax).toLocaleString('en-IN');
+  if(state.user){
+    document.getElementById('payName').value=state.user.name||'';
+    document.getElementById('payPhone').value=state.user.phone||'';
+  }
+}
+function selectPayMethod(method, el){
+  state.selectedPayMethod=method;
+  document.querySelectorAll('.payment-methods .pay-method').forEach(e=>e.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.pay-section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('pay-'+method).classList.add('active');
+}
+function selectWallet(w){
+  state.selectedWallet=w;
+  document.querySelectorAll('[id^=wallet-]').forEach(e=>e.classList.remove('active'));
+  document.getElementById('wallet-'+w).classList.add('active');
+}
+function formatCard(el){
+  let v=el.value.replace(/\D/g,'').substring(0,16);
+  el.value=v.replace(/(.{4})/g,'$1 ').trim();
+}
+function processPayment(){
+  const name=document.getElementById('payName').value;
+  const address=document.getElementById('payAddress').value;
+  const city=document.getElementById('payCity').value;
+  const pin=document.getElementById('payPin').value;
+  if(!name||!address||!city||!pin){showToast('Please fill delivery address','error');return;}
+  if(state.selectedPayMethod==='card'){
+    const card=document.getElementById('cardNum').value.replace(/\s/g,'');
+    const exp=document.getElementById('cardExp').value;
+    const cvv=document.getElementById('cardCvv').value;
+    if(card.length<16||!exp||cvv.length<3){showToast('Please fill valid card details','error');return;}
+  }
+  if(state.selectedPayMethod==='upi'){
+    const upi=document.getElementById('upiId').value;
+    if(!upi.includes('@')){showToast('Please enter valid UPI ID','error');return;}
+  }
+  showToast('Processing payment…','info');
+  setTimeout(()=>{
+    const orderId='MS'+Date.now().toString().slice(-8).toUpperCase();
+    document.getElementById('orderId').textContent='#'+orderId;
+    state.cart=[];
+    updateCartCount();
+    showPage('order-success');
+  },1800);
+}
+// ══════════════ AUTH ══════════════
+function doLogin(){
+  const email=document.getElementById('loginEmail').value.trim();
+  const pass=document.getElementById('loginPassword').value;
+  const alert=document.getElementById('loginAlert');
+  if(!email||!pass){alert.innerHTML=`<div class="alert alert-error">Please fill all fields.</div>`;return;}
+  // Check regular users
+  const user=users.find(u=>u.email===email&&u.password===pass);
+  // Check brand sellers
+  const brand=registeredBrands.find(b=>b.email===email&&b.password===pass);
+  if(user){
+    state.user={...user,type:'user'};
+    setLoggedIn(user.first+' '+user.last,'user');
+    showToast('Welcome back, '+user.first+'!','success');
+    showPage('home');
+  } else if(brand){
+    state.user={name:brand.name,email:brand.email,type:'brand',brandName:brand.name};
+    setLoggedIn(brand.name,'brand');
+    showToast('Welcome, '+brand.name+'!','success');
+    showPage('seller');
+  } else {
+    alert.innerHTML=`<div class="alert alert-error">Invalid email or password. Try demo: demo@test.com / demo123</div>`;
+  }
+}
+function doRegister(){
+  const first=document.getElementById('regFirst').value.trim();
+  const last=document.getElementById('regLast').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  const phone=document.getElementById('regPhone').value.trim();
+  const pass=document.getElementById('regPassword').value;
+  const alert=document.getElementById('registerAlert');
+  if(!first||!last||!email||!phone||!pass){alert.innerHTML=`<div class="alert alert-error">Please fill all required fields.</div>`;return;}
+  if(pass.length<6){alert.innerHTML=`<div class="alert alert-error">Password must be at least 6 characters.</div>`;return;}
+  if(users.find(u=>u.email===email)){alert.innerHTML=`<div class="alert alert-error">Email already registered.</div>`;return;}
+  const newUser={first,last,email,phone,password:pass};
+  users.push(newUser);
+  localStorage.setItem('ms_users',JSON.stringify(users));
+  state.user={...newUser,name:first+' '+last,type:'user'};
+  setLoggedIn(first+' '+last,'user');
+  showToast('Account created! Welcome, '+first+'!','success');
+  showPage('home');
+}
+function doBrandRegister(){
+  const name=document.getElementById('brandName').value.trim();
+  const emoji=document.getElementById('brandEmoji').value.trim();
+  const desc=document.getElementById('brandDesc').value.trim();
+  const email=document.getElementById('brandEmail').value.trim();
+  const phone=document.getElementById('brandPhone').value.trim();
+  const pass=document.getElementById('brandPassword').value;
+  const alert=document.getElementById('brandAlert');
+  if(!name||!email||!phone||!pass){alert.innerHTML=`<div class="alert alert-error">Please fill all required fields.</div>`;return;}
+  if(registeredBrands.find(b=>b.email===email)){alert.innerHTML=`<div class="alert alert-error">Brand email already registered.</div>`;return;}
+  const brand={name,emoji:emoji||'📦',desc,email,phone,password:pass,gst:document.getElementById('brandGST').value,products:[],orders:0,revenue:0};
+  registeredBrands.push(brand);
+  localStorage.setItem('ms_brands',JSON.stringify(registeredBrands));
+  state.user={name,email,type:'brand',brandName:name};
+  setLoggedIn(name,'brand');
+  showToast('Brand registered! Welcome to MobileShopee, '+name+'!','success');
+  renderShop();
+  showPage('seller');
+}
+function setLoggedIn(name,type){
+  document.getElementById('authButtons').style.display='none';
+  document.getElementById('userChip').style.display='flex';
+  document.getElementById('userName').textContent=name;
+  document.getElementById('userAvatar').textContent=name.charAt(0).toUpperCase();
+  if(type==='brand') document.getElementById('sellerNavBtn').style.display='inline-flex';
+  else document.getElementById('sellerNavBtn').style.display='none';
+}
+function logout(){
+  state.user=null;
+  state.cart=[];
+  updateCartCount();
+  document.getElementById('authButtons').style.display='flex';
+  document.getElementById('userChip').style.display='none';
+  document.getElementById('sellerNavBtn').style.display='none';
+  showToast('Logged out successfully','info');
+  showPage('home');
+}
+// ══════════════ SELLER DASHBOARD ══════════════
+function renderSeller(){
+  if(!state.user||state.user.type!=='brand'){showPage('home');return;}
+  const brand = registeredBrands.find(b=>b.email===state.user.email);
+  if(!brand) return;
+  document.getElementById('sellerWelcome').innerHTML=`${brand.emoji||'🏪'} ${brand.name} <span style="color:var(--text2);font-size:.8em;">Dashboard</span>`;
+  const myProds = products.filter(p=>p.brand===brand.name);
+  const revenue = myProds.reduce((a,p)=>a+p.price*Math.floor(Math.random()*20+5),0);
+  document.getElementById('sellerStats').innerHTML=`
+    <div class="stat-card"><div class="stat-icon">📦</div><div class="stat-val">${myProds.length}</div><div class="stat-label">Listed Products</div></div>
+    <div class="stat-card"><div class="stat-icon">🛒</div><div class="stat-val">${Math.floor(Math.random()*200+50)}</div><div class="stat-label">Total Orders</div></div>
+    <div class="stat-card"><div class="stat-icon">💰</div><div class="stat-val">₹${(revenue/1000).toFixed(0)}K</div><div class="stat-label">Revenue</div></div>
+    <div class="stat-card"><div class="stat-icon">⭐</div><div class="stat-val">4.8</div><div class="stat-label">Avg Rating</div></div>
+  `;
+  sellerTab('products', document.querySelector('.pill-tab'));
+}
+function sellerTab(tab, el){
+  document.querySelectorAll('.pill-tab').forEach(t=>t.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const brand = registeredBrands.find(b=>b.email===state.user?.email);
+  const myProds = products.filter(p=>p.brand===brand?.name);
+  const content = document.getElementById('sellerTabContent');
+  if(tab==='products'){
+    if(!myProds.length){
+      content.innerHTML=`<div style="text-align:center;padding:60px;color:var(--text2);"><div style="font-size:3rem;margin-bottom:12px;">📦</div><div style="font-size:1rem;font-weight:600;margin-bottom:8px;">No products listed yet</div><div style="font-size:.85rem;margin-bottom:20px;">Start by adding your first product</div><button class="btn btn-primary" onclick="showAddProductModal()">+ Add First Product</button></div>`;return;
+    }
+    content.innerHTML=`<div class="products-table">
+      <div class="table-header"><span>Icon</span><span>Product</span><span>Price</span><span>Stock</span><span>Status</span></div>
+      ${myProds.map(p=>`<div class="table-row">
+        <span style="font-size:1.8rem;">${p.emoji}</span>
+        <div><div style="font-weight:600;font-size:.88rem;">${p.name}</div><div style="font-size:.75rem;color:var(--text2);">${p.ram} · ${p.storage}</div></div>
+        <div style="font-family:'Orbitron',sans-serif;font-size:.85rem;color:var(--cyan);">₹${p.price.toLocaleString('en-IN')}</div>
+        <div style="font-size:.85rem;">${Math.floor(Math.random()*50+10)}</div>
+        <span class="status-badge status-live">Live</span>
+      </div>`).join('')}
+    </div>`;
+  } else if(tab==='orders'){
+    const fakeOrders=[{id:'MS10293847',product:'Galaxy S25',customer:'Raj S.',date:'Mar 20',amount:'₹1,34,999',status:'Delivered'},{id:'MS10293820',product:'iPhone 16',customer:'Priya M.',date:'Mar 19',amount:'₹1,59,900',status:'Shipped'},{id:'MS10293799',product:'Galaxy A55',customer:'Amit K.',date:'Mar 18',amount:'₹34,999',status:'Processing'}];
+    content.innerHTML=`<div class="products-table">
+      <div class="table-header" style="grid-template-columns:100px 1fr 100px 80px 100px;"><span>Order ID</span><span>Product</span><span>Amount</span><span>Date</span><span>Status</span></div>
+      ${fakeOrders.map(o=>`<div class="table-row" style="grid-template-columns:100px 1fr 100px 80px 100px;">
+        <span style="font-family:'Orbitron',sans-serif;font-size:.72rem;color:var(--cyan);">#${o.id.slice(-6)}</span>
+        <div><div style="font-weight:600;font-size:.88rem;">${o.product}</div><div style="font-size:.75rem;color:var(--text2);">${o.customer}</div></div>
+        <div style="font-weight:700;font-size:.85rem;">${o.amount}</div>
+        <div style="font-size:.8rem;color:var(--text2);">${o.date}</div>
+        <span class="status-badge ${o.status==='Delivered'?'status-live':'status-pending'}">${o.status}</span>
+      </div>`).join('')}
+    </div>`;
+  } else if(tab==='analytics'){
+    content.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;">
+      <div class="stat-card"><div class="stat-icon">📈</div><div class="stat-val">+28%</div><div class="stat-label">Sales Growth (MoM)</div></div>
+      <div class="stat-card"><div class="stat-icon">👁️</div><div class="stat-val">12.4K</div><div class="stat-label">Product Views</div></div>
+      <div class="stat-card"><div class="stat-icon">🛒</div><div class="stat-val">3.2%</div><div class="stat-label">Conversion Rate</div></div>
+      <div class="stat-card"><div class="stat-icon">↩️</div><div class="stat-val">0.8%</div><div class="stat-label">Return Rate</div></div>
+    </div>`;
+  }
+}
+// ══════════════ ADD PRODUCT MODAL ══════════════
+function showAddProductModal(){
+  if(!state.user||state.user.type!=='brand'){showToast('Sellers only','error');return;}
+  document.getElementById('addProductModal').style.display='flex';
+}
+function closeModal(){document.getElementById('addProductModal').style.display='none';}
+function addSellerProduct(){
+  const name=document.getElementById('prodName').value.trim();
+  const emoji=document.getElementById('prodEmoji').value.trim();
+  const price=parseInt(document.getElementById('prodPrice').value);
+  const oldPrice=parseInt(document.getElementById('prodOldPrice').value)||0;
+  const desc=document.getElementById('prodDesc').value.trim();
+  const alert=document.getElementById('addProdAlert');
+  if(!name||!emoji||!price){alert.innerHTML=`<div class="alert alert-error">Please fill required fields (Name, Emoji, Price).</div>`;return;}
+  const brand=state.user.brandName;
+  const newP={
+    id:Date.now(),brand,emoji,name,price,oldPrice:oldPrice||undefined,
+    rating:4.5,reviews:0,
+    desc:desc||'Quality mobile from '+brand,
+    ram:document.getElementById('prodRAM').value||'N/A',
+    storage:document.getElementById('prodStorage').value||'N/A',
+    camera:document.getElementById('prodCamera').value||'N/A',
+    battery:document.getElementById('prodBattery').value||'N/A',
+    badge:'NEW',tags:['new']
+  };
+  products.unshift(newP);
+  closeModal();
+  showToast(name+' listed successfully!','success');
+  renderSeller();
+  document.getElementById('addProdAlert').innerHTML='';
+  ['prodName','prodEmoji','prodPrice','prodOldPrice','prodDesc','prodRAM','prodStorage','prodCamera','prodBattery'].forEach(id=>document.getElementById(id).value='');
+}
+// ══════════════ TOAST ══════════════
+function showToast(msg, type='info'){
+  const icons={success:'✅',error:'❌',info:'ℹ️'};
+  const t=document.createElement('div');
+  t.className=`toast ${type}`;
+  t.innerHTML=`<span>${icons[type]}</span><span>${msg}</span>`;
+  document.getElementById('toastContainer').appendChild(t);
+  setTimeout(()=>t.remove(),3200);
+}
+// ══════════════ INIT ══════════════
+function init(){
+  // Seed demo user
+  if(!users.find(u=>u.email==='demo@test.com')){
+    users.push({first:'Demo',last:'User',email:'demo@test.com',phone:'+91 98765 43210',password:'demo123'});
+    localStorage.setItem('ms_users',JSON.stringify(users));
+  }
+  renderHome();
+  updateCartCount();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
